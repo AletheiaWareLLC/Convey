@@ -1,0 +1,70 @@
+/*
+ * Copyright 2020 Aletheia Ware LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto3";
+
+option go_package = "github.com/AletheiaWareLLC/conveygo";
+option java_outer_classname = "ConveyProto";
+option java_package = "com.aletheiaware.convey";
+
+package convey;
+
+message Message {
+    // Record Hash of Message being replied to
+    // (empty if first Message in Conversation).
+    bytes previous = 1;
+    // Message Content.
+    bytes content = 2;
+    // Media Type.
+    MediaType type = 3;
+}
+
+enum MediaType {
+    UNKNOWN = 0;
+    // text/plain
+    TEXT_PLAIN = 1;
+}
+
+message Conversation {
+    // Conversation Topic.
+    string topic = 1;
+    // TODO(v4) Category category = 2;
+}
+
+message Listing {
+    // Conversation Hash.
+    bytes hash = 1;
+    // Conversation Cost.
+    uint64 cost = 2;
+    // Conversation Timestamp.
+    uint64 timestamp = 3;
+    // Conversation Starter.
+    string author = 4;
+    // Conversation Topic.
+    string topic = 5;
+    // TODO(v4) Category category = 6;
+    // TODO(v4) repeated Tag tag = 7;
+}
+
+message Transaction {
+    // Token Sender.
+    // Sender must initiate transation therefore sender must be bcgo.Record.Creator
+    string sender = 1;
+    // Token Receiver.
+    string receiver = 2;
+    // Token Amount.
+    uint64 amount = 3;
+}
